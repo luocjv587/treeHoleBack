@@ -13,37 +13,49 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Model\Letter;
+use App\Model\Second;
 
 class IndexController extends AbstractController
 {
-    public function index()
-    {
-        $user = $this->request->input('user', 'Hyperf');
-        $method = $this->request->getMethod();
-
-        return [
-            'method' => $method,
-            'message' => "Hello {$user}.",
-        ];
-    }
-
     public function createLetter()
     {
         $letter_info = $this->request->input('letter_info', '');
         $letter = new Letter();
         $letter->letter_info = $letter_info;
         $letter->save();
+
+        $second = Second::first();
+        $second->seconds = 24 * 60 * 60;
+        $second->save();
         return [
             'code' => '1',
             'data' => ''
         ];
     }
 
+    public function getSecond()
+    {
+        $second = Second::first();
+        return [
+            'code' => '1',
+            'data' => $second,
+        ];
+    }
+
     public function getLetter()
     {
         $letter = Letter::inRandomOrder()->first();
+        if (is_null($letter)){
+            return [
+                'code' => '0',
+                'data' => ''
+            ];
+        }
         $letter->get += 1;
         $letter->save();
+
+
+
         return [
             'code' => '1',
             'data' => $letter

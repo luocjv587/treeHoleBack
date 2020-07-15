@@ -18,6 +18,12 @@ class Init extends Migration
             $table->integer('get')->comment('获取次数')->default(0);
             $table->timestamps();
         });
+
+        Schema::create('second', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('seconds')->default(0);
+            $table->timestamps();
+        });
     }
 
     /**
