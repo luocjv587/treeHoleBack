@@ -20,6 +20,13 @@ class IndexController extends AbstractController
     public function createLetter()
     {
         $letter_info = $this->request->input('letter_info', '');
+        //如果内容为 Hi 不进行保存
+        if (trim(str_replace($letter_info, ["\r\n", "\r", "\n"])) == "Hi,") {
+            return [
+                'code' => '1',
+                'data' => ''
+            ];
+        }
         $letter = new Letter();
         $letter->letter_info = $letter_info;
         $letter->save();
@@ -45,7 +52,7 @@ class IndexController extends AbstractController
     public function getLetter()
     {
         $letter = Letter::inRandomOrder()->first();
-        if (is_null($letter)){
+        if (is_null($letter)) {
             return [
                 'code' => '0',
                 'data' => ''
@@ -53,7 +60,6 @@ class IndexController extends AbstractController
         }
         $letter->get += 1;
         $letter->save();
-
 
 
         return [
