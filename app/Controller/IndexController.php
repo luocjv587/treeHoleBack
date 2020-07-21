@@ -21,7 +21,7 @@ class IndexController extends AbstractController
     {
         $letter_info = $this->request->input('letter_info', '');
         //如果内容为 Hi 不进行保存
-        if (trim(str_replace($letter_info, "", ["\r\n", "\r", "\n"])) == "Hi,") {
+        if (trim(str_replace(["\r\n", "\r", "\n"], "", $letter_info)) == "Hi,") {
             return [
                 'code' => '1',
                 'data' => ''
