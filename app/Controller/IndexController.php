@@ -32,7 +32,7 @@ class IndexController extends AbstractController
         $letter->save();
 
         $second = Second::first();
-        $second->seconds = 24 * 60 * 60;
+        $second->seconds = time() + 24 * 60 * 60;
         $second->save();
         return [
             'code' => '1',
@@ -43,6 +43,7 @@ class IndexController extends AbstractController
     public function getSecond()
     {
         $second = Second::first();
+        $second->seconds = $second->seconds - time();
         return [
             'code' => '1',
             'data' => $second,
