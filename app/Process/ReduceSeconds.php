@@ -15,16 +15,16 @@ class ReduceSeconds extends AbstractProcess
 {
     public function handle(): void
     {
-//        if (is_null(Second::first())) {
-//            $second = new Second();
-//            $second->seconds = 12 * 60 * 60;
-//            $second->save();
-//        }
-//        while (true) {
-//            $second = Second::first();
-//            $second->seconds -= 1;
-//            $second->save();
-//            sleep(1);
-//        }
+        if (is_null(Second::first())) {
+            $second = new Second();
+            $second->seconds = 12 * 60 * 60;
+            $second->save();
+        }
+        while (true) {
+            $second = Second::first();
+            $second->seconds -= 1;
+            $second->save();
+            sleep(1);
+        }
     }
 }
